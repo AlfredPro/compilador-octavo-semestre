@@ -32,13 +32,18 @@ tab=[\t]+
 ( "\"" ) {return new Symbol(sym.Comillas, yychar, yyline, yytext());}
 
 /* Tipos de datos */
-( byte | char | long | float | double ) {return new Symbol(sym.T_dato, yychar, yyline, yytext());}
+( byte | char | long  | double ) {return new Symbol(sym.T_dato, yychar, yyline, yytext());}
+
+/* Tipo de dato Float */
+( float ) {return new Symbol(sym.Float, yychar, yyline, yytext());}
 
 /* Tipo de dato Int (Para el main) */
 ( "int" ) {return new Symbol(sym.Int, yychar, yyline, yytext());}
 
 /* Tipo de dato String */
 ( String ) {return new Symbol(sym.Cadena, yychar, yyline, yytext());}
+
+
 
 /* Palabra reservada nya */
 ( nya ) {return new Symbol(sym.nya, yychar, yyline, yytext());}
@@ -195,6 +200,9 @@ tab=[\t]+
 
 /* Numero */
 ("(-"{D}+")")|{D}+ {return new Symbol(sym.Numero, yychar, yyline, yytext());}
+
+/*decimales*/
+("-"?[0-9]?"."[0-9]+) {return new Symbol(sym.NumeroDecimal, yychar, yyline, yytext());}
 
 /* Error de analisis */
  . {return new Symbol(sym.ERROR, yychar, yyline, yytext());}

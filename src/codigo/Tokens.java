@@ -4,6 +4,7 @@ public enum Tokens {
     Comillas,
     T_dato,
     Int,
+    Float,
     Cadena,
     If,
     Else,

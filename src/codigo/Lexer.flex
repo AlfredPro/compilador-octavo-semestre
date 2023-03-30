@@ -25,13 +25,16 @@ tab=[\t]+
 ( "\"" ) {lexeme=yytext(); return Comillas;}
 
 /* Tipos de datos */
-( byte | char | long | float | double ) {lexeme=yytext(); return T_dato;}
+( byte | char | long  | double ) {lexeme=yytext(); return T_dato;}
 
 /* Tipo de dato String */
 ( String ) {lexeme=yytext(); return Cadena;}
 
 /* Tipo de dato Int */
 ( int ) {lexeme=yytext(); return Int;}
+
+/* Tipo de dato Float */
+( float ) {lexeme=yytext(); return Float;}
 
 /* Palabra reservada nya */
 ( nya ) {lexeme=yytext(); return Nya;}
