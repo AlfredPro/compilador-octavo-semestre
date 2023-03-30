@@ -257,6 +257,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 case Numero:
                     resultado += "  <Numero>\t\t" + lexer.lexeme + "\n";
                     break;
+                case NumeroDecimal:
+                    resultado += "  <Numero Decimal>\t\t" + lexer.lexeme + "\n";
+                    break;
                 case ERROR:
                     resultado += "  <Simbolo no definido>\n";
                     break;

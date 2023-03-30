@@ -187,8 +187,10 @@ tab=[\t]+
 {L}({L}|{D})* {lexeme=yytext(); return Identificador;}
 
 /* Numero */
-("(-"{D}+")")|{D}+"."D* {lexeme=yytext(); return Numero;}
+("-"?[0-9]+) {lexeme=yytext(); return Numero;}
 
+/*decimale*/
+("-"?[0-9]?"."[0-9]+) {lexeme=yytext(); return NumeroDecimal;}
 /* Error de analisis */
  . {return ERROR;}
 

@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/LexerCup.flex</file>
-            <file>file:/C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Principal.java</file>
-            <file>file:/C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/sym.java</file>
-            <file>file:/C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Sintax.cup</file>
-            <file>file:/C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Lexer.flex</file>
-            <file>file:/C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Tokens.java</file>
-            <file>file:/C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/LexerCup.java</file>
+            <file>file:/C:/Users/franz/Documents/GitHub/compilador-octavo-semestre/src/codigo/Principal.java</file>
+            <file>file:/C:/Users/franz/Documents/GitHub/compilador-octavo-semestre/src/codigo/Sintax.java</file>
         </group>
     </open-files>
 </project-private>

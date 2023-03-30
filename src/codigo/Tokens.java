@@ -30,6 +30,7 @@ public enum Tokens {
     P_coma,
     Identificador,
     Numero,
+    NumeroDecimal,
     Reservadas,
     Instruccion,
     Nya,
