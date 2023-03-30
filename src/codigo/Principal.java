@@ -7,10 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Principal {
+    public static String localDir;
+    
     public static void main(String[] args) throws Exception {
-        String ruta1 = "C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Lexer.flex";
-        String ruta2 = "C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/LexerCup.flex";
-        String[] rutaS = {"-parser", "Sintax", "C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Sintax.cup"};
+        localDir = System.getProperty("user.dir");
+        String ruta1 = localDir+"/src/codigo/Lexer.flex";
+        String ruta2 = localDir+"/src/codigo/LexerCup.flex";
+        String[] rutaS = {"-parser", "Sintax", localDir+"/src/codigo/Sintax.cup"};
         generar(ruta1, ruta2, rutaS);
     }
     public static void generar(String ruta1, String ruta2, String[] rutaS) throws IOException, Exception{
@@ -20,18 +23,18 @@ public class Principal {
         JFlex.Main.generate(archivo);
         java_cup.Main.main(rutaS);
         
-        Path rutaSym = Paths.get("C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/sym.java");
+        Path rutaSym = Paths.get(localDir+"/src/codigo/sym.java");
         if(Files.exists(rutaSym)){
             Files.delete(rutaSym);
         }
-        Files.move(Paths.get("C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/sym.java"), 
-                Paths.get("C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/sym.java"));
+        Files.move(Paths.get(localDir+"/sym.java"), 
+                Paths.get(localDir+"/src/codigo/sym.java"));
         
-        Path rutaSin = Paths.get("C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Sintax.java");
+        Path rutaSin = Paths.get(localDir+"/src/codigo/Sintax.java");
         if(Files.exists(rutaSin)){
             Files.delete(rutaSin);
         }
-        Files.move(Paths.get("C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/Sintax.java"), 
-                Paths.get("C:/Users/Alfredo/Documents/NetBeansProjects/Analizador2/src/codigo/Sintax.java"));
+        Files.move(Paths.get(localDir+"/Sintax.java"), 
+                Paths.get(localDir+"/src/codigo/Sintax.java"));
     }
 }
