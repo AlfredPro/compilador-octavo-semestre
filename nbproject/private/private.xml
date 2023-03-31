@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/franz/Documents/GitHub/compilador-octavo-semestre/src/codigo/Principal.java</file>
-            <file>file:/C:/Users/franz/Documents/GitHub/compilador-octavo-semestre/src/codigo/Sintax.java</file>
+            <file>file:/C:/Users/David%20Arcos/Documents/NetBeansProjects/compilador-octavo-semestre/src/codigo/Sintax.cup</file>
+            <file>file:/C:/Users/David%20Arcos/Documents/NetBeansProjects/compilador-octavo-semestre/src/codigo/Principal.java</file>
+            <file>file:/C:/Users/David%20Arcos/Documents/NetBeansProjects/compilador-octavo-semestre/src/codigo/Lexer.flex</file>
+            <file>file:/C:/Users/David%20Arcos/Documents/NetBeansProjects/compilador-octavo-semestre/src/codigo/FrmPrincipal.java</file>
         </group>
     </open-files>
 </project-private>

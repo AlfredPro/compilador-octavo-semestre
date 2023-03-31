@@ -21,8 +21,14 @@ tab=[\t]+
 /* Salto de linea */
 ( "\n" ) {return Linea;}
 
+/* Tabular */
+( "\t" ) {lexeme=yytext(); return Tab;}
+
 /* Comillas */
 ( "\"" ) {lexeme=yytext(); return Comillas;}
+
+/* Dos puntos */
+( : ) {lexeme=yytext(); return DosPuntos;}
 
 /* Tipos de datos */
 ( byte | char | long  | double ) {lexeme=yytext(); return T_dato;}
@@ -140,6 +146,9 @@ tab=[\t]+
 
 /* Operador Resta */
 ( "-" ) {lexeme=yytext(); return Resta;}
+
+/* Operador Mod */
+( "%" ) {lexeme=yytext(); return Mod;}
 
 /* Operador Multiplicacion */
 ( "*" ) {lexeme=yytext(); return Multiplicacion;}

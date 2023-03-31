@@ -12,6 +12,7 @@ L=[a-zA-Z_]+
 D=[0-9]+
 espacio=[ ,\r,\n]+
 tab=[\t]+
+dos_puntos=[:]
 %{
     private Symbol symbol(int type, Object value){
         return new Symbol(type, yyline, yycolumn, value);
@@ -24,6 +25,12 @@ tab=[\t]+
 
 /* Espacios en blanco */
 {espacio} {/*Ignore*/}
+
+/* Tabular */
+{tab} {return new Symbol(sym.tab, yychar, yyline, yytext());}
+
+/* DosPuntos */
+{dos_puntos} {return new Symbol(sym.DosPuntos, yychar, yyline, yytext());}
 
 /* Comentarios */
 ( "//"(.)* ) {/*Ignore*/}

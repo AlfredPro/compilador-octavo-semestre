@@ -14,6 +14,7 @@ public enum Tokens {
     Igual,
     Suma,
     Resta,
+    Mod,
     Multiplicacion,
     Division,
     Op_logico,
@@ -65,5 +66,7 @@ public enum Tokens {
     while_word,
     with_word,
     yield_word,
+    Tab,
+    DosPuntos,
     ERROR
 }
