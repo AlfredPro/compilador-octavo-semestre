@@ -1,6 +1,7 @@
 package codigo;
 public enum Tokens {
     Linea,
+    Tabulacion,
     Comillas,
     T_dato,
     Int,

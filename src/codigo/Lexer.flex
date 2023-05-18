@@ -6,7 +6,6 @@ import static codigo.Tokens.*;
 L=[a-zA-Z_]+
 D=[0-9]+
 espacio=[ ,\r]+
-tab=[\t]+
 %{
     public String lexeme;
 %}
@@ -20,6 +19,9 @@ tab=[\t]+
 
 /* Salto de linea */
 ( "\n" ) {return Linea;}
+
+/* Tabulacion */
+( "\t" ) {return Tabulacion;}
 
 /* Comillas */
 ( "\"" ) {lexeme=yytext(); return Comillas;}
