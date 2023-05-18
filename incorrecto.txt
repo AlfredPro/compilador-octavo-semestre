@@ -1,0 +1,12 @@
+def 54ispair( int num )
+	if num % 2 == 0: true
+	else:
+	return false
+cont = 0, range = 100
+nopairs = 0, noodd = 0
+while cont < range:
+	cont + 1
+	if ispair(cont):
+		nopairs++
+	else:
+		noodd++

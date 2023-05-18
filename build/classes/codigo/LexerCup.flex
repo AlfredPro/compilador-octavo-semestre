@@ -11,6 +11,8 @@ import java_cup.runtime.Symbol;
 L=[a-zA-Z_]+
 D=[0-9]+
 espacio=[ ,\r,\n]+
+tab=[\t]+
+dos_puntos=[:]
 %{
     private Symbol symbol(int type, Object value){
         return new Symbol(type, yyline, yycolumn, value);
@@ -24,6 +26,12 @@ espacio=[ ,\r,\n]+
 /* Espacios en blanco */
 {espacio} {/*Ignore*/}
 
+/* Tabular */
+{tab} {return new Symbol(sym.tab, yychar, yyline, yytext());}
+
+/* DosPuntos */
+{dos_puntos} {return new Symbol(sym.DosPuntos, yychar, yyline, yytext());}
+
 /* Comentarios */
 ( "//"(.)* ) {/*Ignore*/}
 
@@ -31,13 +39,18 @@ espacio=[ ,\r,\n]+
 ( "\"" ) {return new Symbol(sym.Comillas, yychar, yyline, yytext());}
 
 /* Tipos de datos */
-( byte | char | long | float | double ) {return new Symbol(sym.T_dato, yychar, yyline, yytext());}
+( byte | char | long  | double ) {return new Symbol(sym.T_dato, yychar, yyline, yytext());}
+
+/* Tipo de dato Float */
+( float ) {return new Symbol(sym.Float, yychar, yyline, yytext());}
 
 /* Tipo de dato Int (Para el main) */
 ( "int" ) {return new Symbol(sym.Int, yychar, yyline, yytext());}
 
 /* Tipo de dato String */
 ( String ) {return new Symbol(sym.Cadena, yychar, yyline, yytext());}
+
+
 
 /* Palabra reservada nya */
 ( nya ) {return new Symbol(sym.nya, yychar, yyline, yytext());}
@@ -194,6 +207,9 @@ espacio=[ ,\r,\n]+
 
 /* Numero */
 ("(-"{D}+")")|{D}+ {return new Symbol(sym.Numero, yychar, yyline, yytext());}
+
+/*decimales*/
+("-"?[0-9]?"."[0-9]+) {return new Symbol(sym.NumeroDecimal, yychar, yyline, yytext());}
 
 /* Error de analisis */
  . {return new Symbol(sym.ERROR, yychar, yyline, yytext());}

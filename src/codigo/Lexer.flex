@@ -20,20 +20,26 @@ espacio=[ ,\r]+
 /* Salto de linea */
 ( "\n" ) {return Linea;}
 
-/* Tabulacion */
-( "\t" ) {return Tabulacion;}
+/* Tabular */
+( "\t" ) {lexeme=yytext(); return Tab;}
 
 /* Comillas */
 ( "\"" ) {lexeme=yytext(); return Comillas;}
 
+/* Dos puntos */
+( : ) {lexeme=yytext(); return DosPuntos;}
+
 /* Tipos de datos */
-( byte | char | long | float | double ) {lexeme=yytext(); return T_dato;}
+( byte | char | long  | double ) {lexeme=yytext(); return T_dato;}
 
 /* Tipo de dato String */
 ( String ) {lexeme=yytext(); return Cadena;}
 
 /* Tipo de dato Int */
 ( int ) {lexeme=yytext(); return Int;}
+
+/* Tipo de dato Float */
+( float ) {lexeme=yytext(); return Float;}
 
 /* Palabra reservada nya */
 ( nya ) {lexeme=yytext(); return Nya;}
@@ -140,6 +146,9 @@ espacio=[ ,\r]+
 /* Operador Resta */
 ( "-" ) {lexeme=yytext(); return Resta;}
 
+/* Operador Mod */
+( "%" ) {lexeme=yytext(); return Mod;}
+
 /* Operador Multiplicacion */
 ( "*" ) {lexeme=yytext(); return Multiplicacion;}
 
@@ -189,8 +198,10 @@ espacio=[ ,\r]+
 {L}({L}|{D})* {lexeme=yytext(); return Identificador;}
 
 /* Numero */
-("(-"{D}+")")|{D}+"."D* {lexeme=yytext(); return Numero;}
+("-"?[0-9]+) {lexeme=yytext(); return Numero;}
 
+/*decimale*/
+("-"?[0-9]?"."[0-9]+) {lexeme=yytext(); return NumeroDecimal;}
 /* Error de analisis */
  . {return ERROR;}
 

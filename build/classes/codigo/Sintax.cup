@@ -5,7 +5,6 @@ import java_cup.runtime.Symbol;
 parser code
 {:
     private Symbol s;
-    
 
     public void syntax_error(Symbol s){
         this.s = s;
@@ -16,25 +15,28 @@ parser code
     }
 :};
 
-terminal Linea, Comillas, T_dato, Int, Cadena, If, Else, Do, While, For,
-    Igual, Suma, Resta, Multiplicacion, Division, Op_logico, Op_relacional,
+terminal Linea, Comillas, T_dato, Int, Float, Cadena, If, Else, Do, While, For,
+    Igual, Suma, Resta, Mod, Multiplicacion, Division, Op_logico, Op_relacional,
     Op_atribucion, Op_incremento, Op_booleano, Parentesis_a, Parentesis_c,
     Llave_a, Llave_c, Corchete_a, Corchete_c, Main, P_coma, Identificador,
-    Numero, nya, ElseIf, and_word, assert_word, break_word, class_word,
+    Numero,NumeroDecimal, nya, ElseIf, and_word, or_word, assert_word, break_word, class_word,
     continue_word, def_word, del_word, elif_word, else_word, except_word,
     exec_word, finally_word, from_word, global_word, if_word, import_word,
-    in_word, is_word, lambda_word, not_word, or_word, pass_word, print_word,
-    raise_word, return_word, try_word, while_word, with_word, yield_word, ERROR;
-non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_FOR, IF, IF_ELSE,
-    WHILE, DO_WHILE, FOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR;
+    in_word, is_word, lambda_word, not_word, flo_word, pass_word, print_word, DosPuntos,
+    raise_word, return_word, try_word, while_word, with_word, yield_word, tab, ERROR;
+non terminal INICIO, TABULAR, SENTENCIA, DECLARACION, DECLARACION_FOR, IF, IF_ELSE,
+    WHILE, DO_WHILE, FOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR, ASIGNACION, OPERADOR_ARITMETICO, 
+    OPERADOR_RELACIONAL, OPERADOR_LOGICO;
 
 start with INICIO;
-
 INICIO ::= 
-    Int Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c |
+    def_word Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c |
     Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c
 ;
 SENTENCIA ::= 
+    Parentesis_a SENTENCIA Parentesis_c |
+    SENTENCIA TABULAR |
+    TABULAR |
     SENTENCIA DECLARACION |
     DECLARACION |
     SENTENCIA IF | 
@@ -46,28 +48,51 @@ SENTENCIA ::=
     SENTENCIA DO_WHILE
     DO_WHILE |
     SENTENCIA FOR |
-    FOR
+    FOR |
+    SENTENCIA ASIGNACION |
+    ASIGNACION 
+;
+TABULAR ::= 
+    tab
 ;
 DECLARACION ::= 
-    Int Identificador P_coma | 
-    Int Identificador Op_atribucion Numero P_coma |
-    Int Identificador Igual Numero P_coma |
-    Int Identificador Op_incremento P_coma | 
-    Int Op_incremento Identificador P_coma | 
-    T_dato Identificador P_coma | 
-    T_dato Identificador Op_atribucion Numero P_coma |
-    T_dato Identificador Igual Numero P_coma |
-    T_dato Identificador Op_incremento P_coma | 
-    T_dato Op_incremento Identificador P_coma | 
-    Cadena Identificador Op_atribucion Comillas Comillas P_coma |
-    Cadena Identificador Igual Comillas Comillas P_coma |
-    Cadena Identificador Op_atribucion Comillas Identificador Comillas P_coma |
-    Cadena Identificador Igual Comillas Identificador Comillas P_coma
+    Int Identificador | 
+    Int Identificador Op_atribucion Numero |
+    Int Identificador Igual Numero |
+    Int Identificador Op_incremento | 
+    Int Op_incremento Identificador |
+    Float Identificador Igual NumeroDecimal |
+    T_dato Identificador | 
+    T_dato Identificador Igual NumeroDecimal |
+    T_dato Identificador Op_atribucion Numero |
+    T_dato Identificador Igual Numero |
+    T_dato Op_incremento Identificador | 
+    Cadena Identificador Op_atribucion Comillas Comillas |
+    Cadena Identificador Igual Comillas Comillas |
+    Cadena Identificador Op_atribucion Comillas Identificador Comillas |
+    Cadena Identificador Igual Comillas Identificador Comillas
+;
+ASIGNACION ::=
+    Identificador Igual Comillas Identificador Comillas |
+    Identificador Igual Identificador |
+    Identificador Op_incremento |
+    Identificador Igual Numero |
+    Identificador Igual Identificador OPERADOR_ARITMETICO Numero | 
+    Identificador Igual Identificador OPERADOR_ARITMETICO Identificador
+;
+OPERADOR_ARITMETICO ::=
+    Igual | Suma | Resta | Mod | Multiplicacion | Division
+;
+OPERADOR_RELACIONAL ::=
+    Op_relacional
+;
+OPERADOR_LOGICO ::=
+    Op_logico
 ;
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
 ;
 SENTENCIA_BOOLEANA ::= 
-    Op_booleano | 
+    Op_booleano |
     Identificador Op_relacional Op_booleano |
     Identificador Op_relacional Numero |
     Identificador Op_relacional Identificador |
@@ -78,7 +103,7 @@ IF_ELSE ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Ll
 ;
 WHILE ::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
 ;
-DO_WHILE ::= Do Llave_a SENTENCIA Llave_c While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c P_coma
+DO_WHILE ::= Do Llave_a SENTENCIA Llave_c While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c 
 ;
 FOR ::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c
 ;

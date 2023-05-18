@@ -1,0 +1,15 @@
+def main(){
+	int x = 0
+	int cont = 0
+	int range = 100
+	int nopairs = 0
+	int noodd = 0
+	while(cont < range){
+		cont = cont + 1
+		if( cont > 5 ){
+			nopairs++
+		}else{
+			noodd++
+		}
+	}
+}

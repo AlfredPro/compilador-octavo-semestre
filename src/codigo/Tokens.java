@@ -5,6 +5,7 @@ public enum Tokens {
     Comillas,
     T_dato,
     Int,
+    Float,
     Cadena,
     If,
     Else,
@@ -14,6 +15,7 @@ public enum Tokens {
     Igual,
     Suma,
     Resta,
+    Mod,
     Multiplicacion,
     Division,
     Op_logico,
@@ -31,6 +33,7 @@ public enum Tokens {
     P_coma,
     Identificador,
     Numero,
+    NumeroDecimal,
     Reservadas,
     Instruccion,
     Nya,
@@ -64,5 +67,7 @@ public enum Tokens {
     while_word,
     with_word,
     yield_word,
+    Tab,
+    DosPuntos,
     ERROR
 }
