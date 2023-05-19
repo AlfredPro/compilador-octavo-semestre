@@ -5,6 +5,7 @@
 import java.util.Stack;
 import java.util.HashMap;
 import java.lang.Math;
+import java.util.Map;
 /**
  *
  * @author Alfredo
@@ -85,133 +86,87 @@ public class ExpressionEvaluation extends javax.swing.JFrame {
         }
         return true;
     }
+
+public class ExpressionEvaluator {
+    private final Map<String, Integer> priorities;
+
+    public ExpressionEvaluator() {
+        priorities = new HashMap<>();
+        priorities.put(")", 5);
+        priorities.put("^", 4);
+        priorities.put("*", 3);
+        priorities.put("/", 3);
+        priorities.put("+", 2);
+        priorities.put("-", 2);
+        priorities.put("(", 1);
+    }
+
+    public double evaluateExpression(String inputStr) {
+        String[] tokens = inputStr.split(" ");
+        Stack<Double> operands = new Stack<>();
+        Stack<String> operators = new Stack<>();
+
+        for (String token : tokens) {
+            if (isNumeric(token)) {
+                operands.push(Double.parseDouble(token));
+            } else {
+                if (operators.empty() || token.equals("(")) {
+                    operators.push(token);
+                } else {
+                    if (!token.equals(")")) {
+                        while (!operators.empty() && !operators.peek().equals("(") &&
+                                priorities.get(token) <= priorities.get(operators.peek())) {
+                            evaluateTop(operands, operators);
+                        }
+                        operators.push(token);
+                    } else {
+                        while (!operators.peek().equals("(")) {
+                            evaluateTop(operands, operators);
+                        }
+                        operators.pop();
+                    }
+                }
+            }
+        }
+
+        while (!operators.empty()) {
+            evaluateTop(operands, operators);
+        }
+
+        return operands.pop();
+    }
+
+    private void evaluateTop(Stack<Double> operands, Stack<String> operators) {
+        double op2 = operands.pop();
+        double op1 = operands.pop();
+        String operator = operators.pop();
+
+        double result = 0;
+
+        if (operator.equals("^")) {
+            result = Math.pow(op1, op2);
+        } else if (operator.equals("*")) {
+            result = op1 * op2;
+        } else if (operator.equals("/")) {
+            result = op1 / op2;
+        } else if (operator.equals("+")) {
+            result = op1 + op2;
+        } else if (operator.equals("-")) {
+            result = op1 - op2;
+        }
+
+        operands.push(result);
+    }
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
+    }
+}
+
     
     private void calculateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateBtnActionPerformed
-        HashMap<String, Integer> prioridades;
-        prioridades = new HashMap<String, Integer>();
-        prioridades.put(")", 5);
-        prioridades.put("^", 4);
-        prioridades.put("*", 3);
-        prioridades.put("/", 3);
-        prioridades.put("+", 2);
-        prioridades.put("-", 2);
-        prioridades.put("(", 1);
-        
         String inputStr = inputExpression.getText();
-        String[] tokens = inputStr.split(" ");
-        Stack<Double> operandos = new Stack<Double>();
-        Stack<String> operadores = new Stack<String>();
-        for(String s : tokens){
-            System.out.println(s);
-            if(isNumeric(s)){
-                operandos.push(Double.parseDouble(s));
-            }
-            else{
-                if(operadores.empty() || s.equals("(")){
-                    operadores.push(s);
-                }
-                else{
-                    if(!s.equals(")")){
-                        if(prioridades.get(s) > prioridades.get(operadores.peek())){
-                            operadores.push(s);
-                        }
-                        else{
-                            double op1 = operandos.pop();
-                            double op2 = operandos.pop();
-                            double res = 0;
-                            String oper = operadores.pop();
-                            switch(oper){
-                                case "^":
-                                    res = Math.pow(op2, op1);
-                                    break;
-                                case "*":
-                                    res = op2 * op1;
-                                    break;
-                                case "/":
-                                    res = op2 / op1;
-                                    break;
-                                case "+":
-                                    res = op2 + op1;
-                                    break;
-                                case "-":
-                                    res = op2 - op1;
-                                    break;
-                                default:
-                                    res = 0;
-                                    break;
-                            }
-                            System.out.println("Res"+Double.toString(res));
-                            operandos.push(res);
-                            operadores.push(s);
-                        }
-                    }
-                    else{
-                        while(!operadores.peek().equals("(")){
-                            double op1 = operandos.pop();
-                            double op2 = operandos.pop();
-                            double res = 0;
-                            String oper = operadores.pop();
-                            switch(oper){
-                                case "^":
-                                    res = Math.pow(op2, op1);
-                                    break;
-                                case "*":
-                                    res = op2 * op1;
-                                    break;
-                                case "/":
-                                    res = op2 / op1;
-                                    break;
-                                case "+":
-                                    res = op2 + op1;
-                                    break;
-                                case "-":
-                                    res = op2 - op1;
-                                    break;
-                                default:
-                                    res = 0;
-                                    break;
-                            }
-                            System.out.println("Res2"+Double.toString(res));
-                            operandos.push(res);
-                        }
-                        operadores.pop();
-                    }
-                }
-            }
-        }
-        while(!operadores.empty()){
-            double op1 = operandos.pop();
-            double op2 = operandos.pop();
-            double res = 0;
-            String oper = operadores.pop();
-            switch(oper){
-                case "^":
-                    res = Math.pow(op2, op1);
-                    break;
-                case "*":
-                    res = op2 * op1;
-                    break;
-                case "/":
-                    res = op2 / op1;
-                    break;
-                case "+":
-                    res = op2 + op1;
-                    break;
-                case "-":
-                    res = op2 - op1;
-                    break;
-                default:
-                    res = 0;
-                    break;
-            }
-            
-            System.out.println(op1);
-            System.out.println(op2);
-            System.out.println(oper);
-            System.out.println(res);
-            operandos.push(res);
-        }
-        resultExpression.setText(Double.toString(operandos.pop()));
+        ExpressionEvaluator eva = new ExpressionEvaluator();
+        resultExpression.setText(Double.toString(eva.evaluateExpression(inputStr)));
     }//GEN-LAST:event_calculateBtnActionPerformed
 
     /**
